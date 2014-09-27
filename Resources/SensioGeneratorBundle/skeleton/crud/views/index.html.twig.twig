@@ -1,0 +1,93 @@
+{% block extends %}
+{{ "{% extends '"~bundle~"::layout.html.twig' %}" }}
+{% endblock extends %}
+
+{% set alias=entity|first|lower %}
+
+{% block body %}
+{{ "{% block content %}" }}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            {{ entity }}
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">{{ entity }}</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Lista de {{ entity }}</h3>
+                    </div><!-- /.box-header -->
+
+                    <div class="toolbar">
+                        {% if 'new' in actions %}
+                            <a href="{{ "{{ path('" ~ route_name_prefix ~ "_new') }}" }}" class="btn btn-success">
+                                Create a new entry
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                {%- for field, metadata in fields %}
+
+                                <th>{{ "{{ knp_pagination_sortable(pagination, '"~(field|capitalize)~"', '"~alias~"."~field~"') }}" }}</th>
+
+                                {%- endfor %}
+
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{ '{% for entity in pagination %}' }}
+                            <tr>
+                            {%- for field, metadata in fields %}
+                                {%- if loop.first and ('show' in actions) %}
+
+                                <td><a href="{{ "{{ path('" ~ route_name_prefix ~ "_show', { 'id': entity.id }) }}" }}">{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</a></td>
+
+                                {%- elseif metadata.type in ['date', 'datetime'] %}
+
+                                <td>{{ '{% if entity.' ~ field|replace({'_': ''}) ~ ' %}{{ entity.' ~ field|replace({'_': ''}) ~ '|date(\'Y-m-d H:i:s\') }}{% endif %}' }}</td>
+
+                                {%- else %}
+
+                                <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
+
+                                {%- endif %}
+                                {%- if loop.last %}
+
+                                <td>
+                                    {%- include "crud/views/others/actions.html.twig.twig" %}
+                                </td>
+
+                                {%- endif %}
+                            {%- endfor %}
+
+                            </tr>
+                            {{ '{% endfor %}' }}
+                            </tbody>
+                        </table>
+
+                    </div><!-- /.box-body -->
+
+                    <div class="box-footer clearfix">
+                        {{ "{# display navigation #}"}}
+                        {{ "{{ knp_pagination_render(pagination) }}" }}
+                    </div>
+                </div><!-- /.box -->
+            </div></div>
+    </section>
+
+{{ "{% endblock %}" }}
+{% endblock body %}

@@ -1,0 +1,26 @@
+
+                                    <ul>
+
+                                    {%- for action in record_actions %}
+
+                                        <li>
+
+                                        {%- if action == 'show' %}
+
+                                            <a href="{{ "{{ path('" ~ route_name_prefix ~ "_" ~ action ~ "', { 'id': entity.id }) }}" }}" class="btn btn-info" title="{{ action }}"><i class="fa fa-search-plus"></i></a>
+
+                                        {%- elseif action == 'edit' %}
+
+                                            <a href="{{ "{{ path('" ~ route_name_prefix ~ "_" ~ action ~ "', { 'id': entity.id }) }}" }}" class="btn btn-success" title="{{ action }}"><i class="fa fa-pencil"></i></a>
+
+                                        {%- else %}
+
+                                            <a href="{{ "{{ path('" ~ route_name_prefix ~ "_" ~ action ~ "', { 'id': entity.id }) }}" }}">{{ action }}</a>
+
+                                        {%- endif %}
+
+                                        </li>
+
+                                    {%- endfor %}
+
+                                    </ul>
