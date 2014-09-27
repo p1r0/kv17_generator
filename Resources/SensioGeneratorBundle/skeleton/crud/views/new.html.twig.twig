@@ -1,14 +1,42 @@
 {% block extends %}
-{{ "{% extends '::base.html.twig' %}" }}
+    {{ "{% extends 'p1r0TplsAdminLTEBundle::layout.html.twig' %}" }}
 {% endblock extends %}
 
+{% set alias=entity|first|lower %}
+
 {% block body %}
-{{ "{% block body -%}" }}
-    <h1>{{ entity }} creation</h1>
+{{ "{% trans_default_domain 'admin' %}" }}
+{{ "{% form_theme form 'p1r0TplsAdminLTEBundle:Form:admin.html.twig' %}" }}
+{{ "{% block content -%}" }}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            {{ "{{ '"~entity~" Creation'|trans}}" }}
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> {{ "{{ 'Home'|trans}}" }}</a></li>
+            <li class="active">{{ "{{ '"~entity~"'|transchoice(2)}}" }}</li>
+        </ol>
+    </section>
 
-    {{ '{{ form(form) }}' }}
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <!-- form start -->
 
-    {% set hide_edit, hide_delete = true, true %}
-    {% include 'crud/views/others/record_actions.html.twig.twig' %}
+                        {{ '{{ form(form) }}' }}
+
+                    {% set hide_edit, hide_delete = true, true %}
+                    {% include 'crud/views/others/record_actions.html.twig.twig' %}
+                </div><!-- /.box -->
+
+            </div>
+        </div>
+    </section>
+
 {{ "{% endblock %}" }}
 {% endblock body %}

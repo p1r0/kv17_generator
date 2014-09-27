@@ -45,7 +45,7 @@
                             <tr>
                                 {%- for field, metadata in fields %}
 
-                                <th>{{ "{{ knp_pagination_sortable(pagination, '"~(field|capitalize)~"'|trans({},'th'), '"~alias~"."~field~"') }}" }}</th>
+                                <th>{{ "{{ knp_pagination_sortable(pagination, '"~(field|capitalize)~"'|trans({},'labels'), '"~alias~"."~field~"') }}" }}</th>
 
                                 {%- endfor %}
 
