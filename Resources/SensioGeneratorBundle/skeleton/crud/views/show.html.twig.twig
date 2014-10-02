@@ -1,36 +1,60 @@
 {% block extends %}
-{{ "{% extends '::base.html.twig' %}" }}
+    {{ "{% extends 'p1r0TplsAdminLTEBundle::layout.html.twig' %}" }}
 {% endblock extends %}
 
 {% block body %}
-{{ "{% block body -%}" }}
-    <h1>{{ entity }}</h1>
+{{ "{% trans_default_domain 'admin' %}" }}
+{{ "{% block content -%}" }}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        {{ "{{ '"~entity~" Creation'|trans}}" }}
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> {{ "{{ 'Home'|trans}}" }}</a></li>
+        <li class="active">{{ "{{ '"~entity~"'|transchoice(2)}}" }}</li>
+    </ol>
+</section>
 
-    <table class="record_properties">
-        <tbody>
-        {%- for field, metadata in fields %}
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
 
-            <tr>
-                <th>{{ field|capitalize }}</th>
+                <table class="record_properties table table-striped">
+                    <tbody>
+                    {%- for field, metadata in fields %}
 
-            {%- if metadata.type in ['date', 'datetime'] %}
+                        <tr>
+                            <th>{{ field|capitalize }}</th>
 
-                <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ '|date(\'Y-m-d H:i:s\') }}' }}</td>
+                        {%- if metadata.type in ['date', 'datetime'] %}
 
-            {%- else %}
+                            <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ '|date(\'Y-m-d H:i:s\') }}' }}</td>
 
-                <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
+                        {%- else %}
 
-            {%- endif %}
+                            <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
 
-            </tr>
+                        {%- endif %}
 
-        {%- endfor %}
+                        </tr>
 
-        </tbody>
-    </table>
+                    {%- endfor %}
 
-    {% set hide_edit, hide_delete = false, false %}
-    {% include 'crud/views/others/record_actions.html.twig.twig' %}
-{{ "{% endblock %}" }}
+                    </tbody>
+                </table>
+
+                {% set hide_edit, hide_delete = false, false %}
+                {% include 'crud/views/others/record_actions.html.twig.twig' %}
+            </div><!-- /.box -->
+
+        </div>
+    </div>
+</section>
+
+    {{ "{% endblock %}" }}
 {% endblock body %}
