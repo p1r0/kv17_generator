@@ -1,0 +1,9 @@
+{
+    "name": "p1r0/kv17",
+    "license": "MIT",
+    "type": "library",
+    "description": "KV17 Generator Bundle",
+    "autoload": {
+        "psr-0": {"": "src/"}
+    }
+}
