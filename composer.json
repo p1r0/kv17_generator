@@ -3,7 +3,13 @@
     "license": "MIT",
     "type": "library",
     "description": "KV17 Generator Bundle",
+    "target-dir": "p1r0/GeneratorBundle",
     "autoload": {
-        "psr-0": {"": "src/"}
+        "psr-0": {"p1r0\\GeneratorBundle\\": ""}
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.2-dev"
+        }
     }
 }
