@@ -23,4 +23,10 @@
 
                                     {%- endfor %}
 
+                                        <li>
+                                            <a href="{{ "{{ path('" ~ route_name_prefix ~ "_delete', { 'id': entity.id }) }}" }}" class="btn btn-danger" title="{{ "{{ 'delete'|trans }} " }}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </li>
+
                                     </ul>
